@@ -69,13 +69,13 @@ stages:
         train:
           learning_rate: 0.1
           max_iter: 300
-          max_leaf_nodes: 31
+          max_leaf_nodes: 15
           random_state: 42
     outs:
     - path: models
       hash: md5
-      md5: 1d76a9f2f1921aa3ba6bd48577767ff2.dir
-      size: 1086313
+      md5: 2534a80bca4355c698e167e49b3c7498.dir
+      size: 548713
       nfiles: 2
   evaluate:
     cmd: python src/evaluate.py
