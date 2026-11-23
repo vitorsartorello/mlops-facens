@@ -5,8 +5,8 @@ stages:
     deps:
     - path: data/raw/bike.csv
       hash: md5
-      md5: 11e40c60d906dcbd0ebad321fcd221e0
-      size: 850906
+      md5: 7747b2efcdd3801b83c1cfce2d600c15
+      size: 1144308
     - path: src/bike.py
       hash: md5
       md5: c2d8efdd8a57a65e92810794ba981855
@@ -18,16 +18,16 @@ stages:
     outs:
     - path: data/prepared
       hash: md5
-      md5: 200876176d1efaf933bf138da5d752cf.dir
-      size: 705479
+      md5: 8dce3da6581dccaaa171900880720bf2.dir
+      size: 944753
       nfiles: 1
   split:
     cmd: python src/split.py
     deps:
     - path: data/prepared
       hash: md5
-      md5: 200876176d1efaf933bf138da5d752cf.dir
-      size: 705479
+      md5: 8dce3da6581dccaaa171900880720bf2.dir
+      size: 944753
       nfiles: 1
     - path: src/bike.py
       hash: md5
@@ -44,16 +44,16 @@ stages:
     outs:
     - path: data/split
       hash: md5
-      md5: df5c1907f694f0c738b1a30125470c08.dir
-      size: 705571
+      md5: 59841be4bb63765e3c9c72424794925d.dir
+      size: 944845
       nfiles: 2
   train:
     cmd: python src/train.py
     deps:
     - path: data/split/train.csv
       hash: md5
-      md5: 1e8f083267fe1e5a01cf95f7f39fda92
-      size: 668969
+      md5: 79faf9e197384030ab578fe99e5624e9
+      size: 907847
     - path: src/bike.py
       hash: md5
       md5: c2d8efdd8a57a65e92810794ba981855
@@ -74,20 +74,20 @@ stages:
     outs:
     - path: models
       hash: md5
-      md5: 9913c72b12b892b824367f02c147c072.dir
-      size: 553522
+      md5: 18a123aa5fe76e9781b38f6ee20820f9.dir
+      size: 553538
       nfiles: 2
   evaluate:
     cmd: python src/evaluate.py
     deps:
     - path: data/split/test.csv
       hash: md5
-      md5: b2bbb56e51d7b32b837410d10a5d2c0d
-      size: 36602
+      md5: d53a2c5205af26fa4c086b084773afd4
+      size: 36998
     - path: models
       hash: md5
-      md5: 9913c72b12b892b824367f02c147c072.dir
-      size: 553522
+      md5: 18a123aa5fe76e9781b38f6ee20820f9.dir
+      size: 553538
       nfiles: 2
     - path: src/bike.py
       hash: md5
@@ -100,19 +100,19 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-      md5: 3a647a2ec3d20d2efbcfa97b401a3f8d
+      md5: a0297a149423e7a21c1d774368c47aff
       size: 87
   plot:
     cmd: python src/plot.py
     deps:
     - path: data/split/test.csv
       hash: md5
-      md5: b2bbb56e51d7b32b837410d10a5d2c0d
-      size: 36602
+      md5: d53a2c5205af26fa4c086b084773afd4
+      size: 36998
     - path: models
       hash: md5
-      md5: 9913c72b12b892b824367f02c147c072.dir
-      size: 553522
+      md5: 18a123aa5fe76e9781b38f6ee20820f9.dir
+      size: 553538
       nfiles: 2
     - path: src/plot.py
       hash: md5
@@ -121,5 +121,26 @@ stages:
     outs:
     - path: reports/previsto_vs_real.png
       hash: md5
-      md5: 73b01217af31740e8b510a4ed090c3c7
-      size: 147965
+      md5: 85738105612d771febbfa1c469d3fe0e
+      size: 131505
+  compare:
+    cmd: python desafio01/compare_models.py
+    deps:
+    - path: data/split/test.csv
+      hash: md5
+      md5: d53a2c5205af26fa4c086b084773afd4
+      size: 36998
+    - path: desafio01/compare_models.py
+      hash: md5
+      md5: 1081e4a11b70ffdea805b20d2c630453
+      size: 3334
+    - path: models
+      hash: md5
+      md5: 18a123aa5fe76e9781b38f6ee20820f9.dir
+      size: 553538
+      nfiles: 2
+    outs:
+    - path: reports/comparacao.json
+      hash: md5
+      md5: 7e19ebd20277a650d1dbd1e95e6ce8d1
+      size: 349

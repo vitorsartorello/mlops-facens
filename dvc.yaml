@@ -53,3 +53,12 @@ stages:
     plots:
     - reports/previsto_vs_real.png:
         cache: false
+  compare:
+    cmd: python desafio01/compare_models.py
+    deps:
+      - desafio01/compare_models.py
+      - models
+      - data/split/test.csv
+    metrics:
+      - reports/comparacao.json:
+          cache: false
